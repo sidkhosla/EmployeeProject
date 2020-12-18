@@ -1,13 +1,10 @@
 package com.sparta.sidhant.Controller;
 
 import com.sparta.sidhant.Model.EmployeeDTO;
-
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.*;
+import java.lang.reflect.Array;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class DuplicateRemover{
     static ArrayList<String> EmpID = new ArrayList<>();
@@ -37,21 +34,28 @@ public class DuplicateRemover{
             }
             ct = 0;
         }
-
-        FileWriter fw = new FileWriter("src/main/resources/bad.txt", true);
+        FileWriter fw = new FileWriter("src/main/resources/DuplicateEntries.txt", true);
         y = 0;
         for (String e : cruptSet) {
             for (EmployeeDTO g : empSet) {
                 if (g.getEmp_ID().equals(e)) {
                     y++;
-                    fw.write(g.getEmp_ID() + "," + g.getNamePreFix() + "," + g.getFirstName() + "," + g.getMiddleInitial() + "," + g.getLastName() + "," + g.getGender() + "," + g.getEmail() + "," + g.getSalary());
+                    fw.write(g.getEmp_ID() +
+                            "," + g.getNamePreFix() +
+                            "," + g.getFirstName() +
+                            "," + g.getMiddleInitial() +
+                            "," + g.getLastName() +
+                            "," + g.getDateOfJoining()+
+                            "," + g.getDob()+
+                            "," + g.getGender() +
+                            "," + g.getEmail() +
+                            "," + g.getSalary());
                     fw.write("\n");
                 }
-
             }
         }
         System.out.println("Total duplicates found: "+y);
-        System.out.println("Writing duplicate entries to the bad.txt file!");
+        System.out.println("Writing duplicate entries to the DuplicateEntries.txt file!");
         fw.close();
 
         List<EmployeeDTO> cleanList = new ArrayList<>();
@@ -64,11 +68,22 @@ public class DuplicateRemover{
                 }
             }
             if (y == 0) {
-                EmployeeDTO employee = new EmployeeDTO(g.getEmp_ID(), g.getNamePreFix(), g.getFirstName(), g.getMiddleInitial(), g.getLastName(), g.getGender(), g.getEmail(), "12/10/2020", "12/10/2020", g.getSalary().toString());
+                EmployeeDTO employee = new EmployeeDTO(
+                        g.getEmp_ID(),
+                        g.getNamePreFix(),
+                        g.getFirstName(),
+                        g.getMiddleInitial(),
+                        g.getLastName(),
+                        g.getGender(),
+                        g.getEmail(),
+                        g.getDob().toString(),
+                        g.getDateOfJoining().toString(),
+                        g.getSalary().toString());
                 cleanList.add(employee);
             }
             y = 0;
         }
         cleanSet=new HashSet<>(cleanList);
+
     }
 }
