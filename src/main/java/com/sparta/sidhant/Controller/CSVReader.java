@@ -1,17 +1,15 @@
 package com.sparta.sidhant.Controller;
-
 import com.sparta.sidhant.Model.EmployeeDTO;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSVReader extends  DuplicateRemover {
+public class CSVReader extends DuplicateRemover {
      static ArrayList<String> EmpID = new ArrayList<>();
 
-    public static void readEmployees(String path)throws Exception {
+    public static void readEmployees(String path){
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             String line;
@@ -36,7 +34,7 @@ public class CSVReader extends  DuplicateRemover {
                         data[9]);
                 empList.add(employee);
             }
-          duplicateList(empList);
+          DuplicateRemover.duplicateList(empList);
             ThreadRunner dc=new ThreadRunner();
             dc.start();
         } catch (

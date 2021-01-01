@@ -1,22 +1,20 @@
 package com.sparta.sidhant.Controller;
-
 import com.sparta.sidhant.Model.EmployeeDTO;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class DuplicateRemover{
     static ArrayList<String> EmpID = new ArrayList<>();
   public  static Set<EmployeeDTO> cleanSet =null;
     public static void duplicateList(List<EmployeeDTO> empList) throws IOException {
-
+//        System.out.println("juherfushv");
         Set<EmployeeDTO> empSet = new HashSet<>(empList);
 
         Set<String> cruptSet = new HashSet<>();
 
         int y = 0;
-        String[] idx = new String[100000000];
+        String[] idx = new String[100000];
         for (EmployeeDTO e : empList) {
             EmpID.add(e.getEmp_ID());
             idx[y] = e.getEmp_ID();
@@ -34,7 +32,7 @@ public class DuplicateRemover{
             }
             ct = 0;
         }
-        FileWriter fw = new FileWriter("src/main/resources/DuplicateEntries.txt", true);
+        FileWriter fw = new FileWriter("src/main/resources/bad.txt");
         y = 0;
         for (String e : cruptSet) {
             for (EmployeeDTO g : empSet) {
@@ -51,11 +49,14 @@ public class DuplicateRemover{
                             "," + g.getEmail() +
                             "," + g.getSalary());
                     fw.write("\n");
+//                    System.out.println("FORRR");
                 }
             }
+
         }
+
         System.out.println("Total duplicates found: "+y);
-        System.out.println("Writing duplicate entries to the DuplicateEntries.txt file!");
+        System.out.println("Writing duplicate entries to the bad.txt file!");
         fw.close();
 
         List<EmployeeDTO> cleanList = new ArrayList<>();
@@ -84,6 +85,5 @@ public class DuplicateRemover{
             y = 0;
         }
         cleanSet=new HashSet<>(cleanList);
-
     }
 }

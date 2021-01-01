@@ -11,8 +11,8 @@ public class EmployeeDTO{
     String lastName;
     String gender;
     String email;
-    LocalDate dob;
-    LocalDate dateOfJoining;
+    String dob;
+    String dateOfJoining;
     Integer salary;
 
     public EmployeeDTO(String emp_ID, String namePreFix, String firstName, String middleInitial, String lastName, String gender, String email, String dob, String dateOfJoining, String salary) {
@@ -84,20 +84,23 @@ public class EmployeeDTO{
         this.email = email;
     }
 
-    public LocalDate getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
-        this.dob = LocalDate.parse(dob, DateTimeFormatter.ofPattern("M[M]/d[d]/yyyy"));
+    public void setDob(String dob)
+    {
+        //this.dob = LocalDate.parse(dob, DateTimeFormatter.ofPattern("M[M]/d[d]/yyyy"));
+        this.dob=dob;
     }
 
-    public LocalDate getDateOfJoining() {
+    public String getDateOfJoining() {
         return dateOfJoining;
     }
 
     public void setDateOfJoining(String dateOfJoining) {
-        this.dateOfJoining = LocalDate.parse(dateOfJoining, DateTimeFormatter.ofPattern("M[M]/d[d]/yyyy"));
+        //this.dateOfJoining = LocalDate.parse(dateOfJoining, DateTimeFormatter.ofPattern("M[M]/d[d]/yyyy"));
+        this.dateOfJoining=dateOfJoining;
     }
     public Integer getSalary() {
         return salary;
